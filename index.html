@@ -66,6 +66,12 @@
   .navlinks .num{ color: var(--text-faint); margin-right:4px; }
   @media (max-width: 700px){ .navlinks{ display:none; } }
 
+  .nav-contact{ display:flex; gap:18px; align-items:center; }
+  .contact-info{ display:flex; gap:16px; font-family: var(--mono); font-size:12px; color: var(--text-muted); }
+  .contact-info a{ color: var(--text-muted); text-decoration:none; display:flex; align-items:center; gap:5px; }
+  .contact-info a:hover{ color: var(--teal); }
+  @media (max-width: 700px){ .contact-info{ display:none; } }
+
   .hero{ padding: 100px 0 90px; position:relative; }
   .terminal{
     font-family: var(--mono); font-size: 13px; color: var(--teal);
@@ -190,13 +196,19 @@
 <nav>
   <div class="wrap">
     <div class="logo">samina<span>.dev</span></div>
-    <ul class="navlinks">
-      <li><a href="#projects"><span class="num">01</span>Projects</a></li>
-      <li><a href="#design"><span class="num">02</span>Design</a></li>
-      <li><a href="#skills"><span class="num">03</span>Stack</a></li>
-      <li><a href="#about"><span class="num">04</span>About</a></li>
-      <li><a href="#contact"><span class="num">05</span>Contact</a></li>
-    </ul>
+    <div class="nav-contact">
+      <div class="contact-info">
+        <span>📍 Islamabad, Pakistan</span>
+        <a href="mailto:saminagondal482004@gmail.com">✉️ saminagondal482004@gmail.com</a>
+      </div>
+      <ul class="navlinks">
+        <li><a href="#projects"><span class="num">01</span>Projects</a></li>
+        <li><a href="#design"><span class="num">02</span>Design</a></li>
+        <li><a href="#skills"><span class="num">03</span>Stack</a></li>
+        <li><a href="#about"><span class="num">04</span>About</a></li>
+        <li><a href="#contact"><span class="num">05</span>Contact</a></li>
+      </ul>
+    </div>
   </div>
 </nav>
 
@@ -445,6 +457,7 @@
     <p class="reveal">Open to Android developer roles, internships, and design collaborations.</p>
     <div class="contact-links reveal">
       <a href="mailto:saminagondal482004@gmail.com" class="btn btn-primary">Email Me</a>
+      <a href="assets/samina-nawaz-cv.pdf" download class="btn btn-ghost">⬇ Download CV</a>
       <a href="https://github.com/Samina2004" target="_blank" rel="noopener" class="btn btn-ghost">GitHub</a>
       <a href="https://www.linkedin.com/in/samina-nawaz-a8316437b" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn</a>
     </div>
