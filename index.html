@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Samina Nawaz — Android Developer</title>
+<meta name="description" content="Portfolio of Samina Nawaz — Associate Android Developer building offline-first apps with Kotlin, Jetpack Compose and on-device AI.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg: #0a1220;
+    --bg-elevated: #101a2c;
+    --surface: #13203a;
+    --surface-hover: #172947;
+    --border: #22324f;
+    --teal: #2dd4bf;
+    --teal-dim: #1a8f80;
+    --amber: #f5a623;
+    --text: #e8eef5;
+    --text-muted: #90a3bd;
+    --text-faint: #5c7291;
+    --mono: 'JetBrains Mono', monospace;
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--body);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  body::before{
+    content:'';
+    position:fixed; inset:0;
+    background:
+      radial-gradient(ellipse 800px 500px at 15% -10%, rgba(45,212,191,0.10), transparent),
+      radial-gradient(ellipse 600px 400px at 100% 20%, rgba(245,166,35,0.06), transparent);
+    pointer-events:none;
+    z-index:0;
+  }
+
+  .wrap{ max-width: 1080px; margin:0 auto; padding:0 24px; position:relative; z-index:1; }
+
+  nav{
+    position: sticky; top:0; z-index:50;
+    backdrop-filter: blur(12px);
+    background: rgba(10,18,32,0.75);
+    border-bottom: 1px solid var(--border);
+  }
+  nav .wrap{ display:flex; align-items:center; justify-content:space-between; padding-top:18px; padding-bottom:18px; }
+  .logo{ font-family: var(--mono); font-size:15px; color: var(--teal); font-weight:500; letter-spacing:0.5px; }
+  .logo span{ color: var(--text-faint); }
+  .navlinks{ display:flex; gap:26px; list-style:none; font-family: var(--mono); font-size:13px; }
+  .navlinks a{ color: var(--text-muted); text-decoration:none; transition: color .2s; }
+  .navlinks a:hover{ color: var(--teal); }
+  .navlinks .num{ color: var(--text-faint); margin-right:4px; }
+  @media (max-width: 700px){ .navlinks{ display:none; } }
+
+  .hero{ padding: 100px 0 90px; position:relative; }
+  .terminal{
+    font-family: var(--mono); font-size: 13px; color: var(--teal);
+    margin-bottom: 28px; display:flex; align-items:center; gap:10px;
+  }
+  .terminal .dot{ width:8px; height:8px; border-radius:50%; background: var(--teal); box-shadow:0 0 8px var(--teal); animation: pulse 1.8s infinite; }
+  @keyframes pulse{ 0%,100%{ opacity:1;} 50%{ opacity:0.3;} }
+  .terminal .caret{ display:inline-block; width:7px; height:16px; background: var(--teal); margin-left:2px; animation: blink 1s steps(1) infinite; }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  .hero h1{
+    font-family: var(--display); font-size: clamp(2.4rem, 6vw, 4.2rem);
+    font-weight: 700; line-height: 1.05; letter-spacing: -0.02em; max-width: 820px;
+  }
+  .hero h1 .accent{ color: var(--teal); }
+
+  .hero p.lede{ margin-top: 22px; font-size: 18px; color: var(--text-muted); max-width: 580px; line-height: 1.7; }
+
+  .hero-actions{ margin-top: 36px; display:flex; gap:14px; flex-wrap:wrap; }
+  .btn{
+    font-family: var(--mono); font-size: 13px; padding: 12px 22px; border-radius: 6px;
+    text-decoration:none; transition: all .2s; display:inline-flex; align-items:center; gap:8px; border:none; cursor:pointer;
+  }
+  .btn-primary{ background: var(--teal); color:#04120f; font-weight:500; }
+  .btn-primary:hover{ background:#5eead4; transform: translateY(-1px); }
+  .btn-ghost{ border:1px solid var(--border); color: var(--text); background:transparent; }
+  .btn-ghost:hover{ border-color: var(--teal); color: var(--teal); }
+
+  .stack-strip{ margin-top: 64px; display:flex; gap:10px; flex-wrap:wrap; }
+  .stack-chip{ font-family: var(--mono); font-size:12px; color: var(--text-faint); border:1px solid var(--border); padding:6px 12px; border-radius: 100px; }
+
+  .section{ padding: 90px 0; border-top:1px solid var(--border); }
+  .eyebrow{
+    font-family: var(--mono); font-size:12px; color: var(--teal);
+    letter-spacing: 1.5px; text-transform:uppercase;
+    display:flex; align-items:center; gap:10px; margin-bottom:14px;
+  }
+  .eyebrow::before{ content:''; width:24px; height:1px; background: var(--teal); }
+  .section h2{
+    font-family: var(--display); font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+    font-weight:600; letter-spacing:-0.01em; margin-bottom: 44px; max-width: 620px;
+  }
+  .section-intro{ color: var(--text-muted); margin-top:-28px; margin-bottom:44px; max-width:560px; font-size:15px; }
+
+  .project{
+    background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+    padding: 32px; margin-bottom: 22px; transition: border-color .25s, transform .25s; position:relative; overflow:hidden;
+  }
+  .project:hover{ border-color: var(--teal-dim); transform: translateY(-2px); }
+  .project-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:20px; flex-wrap:wrap; margin-bottom:6px; }
+  .project-title{ font-family: var(--display); font-size: 22px; font-weight:600; }
+  .project-year{ font-family: var(--mono); font-size:12px; color: var(--text-faint); margin-bottom:16px; }
+  .badge{
+    font-family: var(--mono); font-size:11px; padding:4px 10px; border-radius:100px;
+    display:inline-flex; align-items:center; gap:6px; white-space:nowrap;
+  }
+  .badge::before{ content:''; width:6px; height:6px; border-radius:50%; }
+  .badge-live{ background: rgba(45,212,191,0.12); color: var(--teal); }
+  .badge-live::before{ background: var(--teal); }
+  .badge-progress{ background: rgba(245,166,35,0.12); color: var(--amber); }
+  .badge-progress::before{ background: var(--amber); }
+
+  .project-desc{ color: var(--text-muted); font-size:15px; margin-bottom:16px; max-width: 680px; }
+  .project-desc ul{ margin: 8px 0 0 18px; }
+  .project-desc li{ margin-bottom:6px; }
+  .project-tags{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px; }
+  .tag{ font-family: var(--mono); font-size:11px; color: var(--text-faint); background: var(--bg-elevated); padding:5px 10px; border-radius:5px; border:1px solid var(--border); }
+  .project-links{ display:flex; gap:20px; }
+  .project-links a{ font-family: var(--mono); font-size:13px; color: var(--teal); text-decoration:none; }
+  .project-links a:hover{ text-decoration:underline; }
+
+  .skills-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(230px,1fr)); gap: 24px; }
+  .skill-cat{ border-left: 2px solid var(--border); padding-left: 20px; }
+  .skill-cat h3{ font-family: var(--mono); font-size:12px; color: var(--text-faint); text-transform:uppercase; letter-spacing:1px; margin-bottom:14px; }
+  .skill-cat ul{ list-style:none; }
+  .skill-cat li{ font-size:15px; padding:5px 0; color: var(--text); }
+
+  .design-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap:24px; }
+  .design-card{
+    background: var(--surface); border:1px solid var(--border); border-radius:14px; overflow:hidden;
+    transition: border-color .25s, transform .25s;
+  }
+  .design-card:hover{ border-color: var(--teal-dim); transform: translateY(-2px); }
+  .design-card .img-wrap{ aspect-ratio: 4/3; overflow:hidden; background: var(--bg-elevated); }
+  .design-card img{ width:100%; height:100%; object-fit:cover; display:block; transition: transform .4s ease; }
+  .design-card:hover img{ transform: scale(1.04); }
+  .design-card-body{ padding:20px; }
+  .design-card-body h4{ font-family: var(--display); font-size:16px; font-weight:600; margin-bottom:6px; }
+  .design-card-body p{ font-family: var(--mono); font-size:12px; color: var(--text-faint); }
+
+  .about-grid{ display:grid; grid-template-columns: 1.3fr 1fr; gap:48px; }
+  @media(max-width:800px){ .about-grid{ grid-template-columns:1fr; } }
+  .about-text p{ color: var(--text-muted); margin-bottom:16px; max-width: 600px; }
+  .edu-card{ background: var(--surface); border:1px solid var(--border); border-radius:12px; padding:24px; margin-bottom:16px; }
+  .edu-card .eyebrow{ margin-bottom:10px; }
+  .edu-card h4{ font-family: var(--display); font-size:17px; margin-bottom:4px; }
+  .edu-card p{ color: var(--text-faint); font-size:14px; }
+
+  .contact{ text-align:center; padding: 100px 0 80px; }
+  .contact h2{ font-family: var(--display); font-size: clamp(2rem,5vw,3rem); margin-bottom:18px; }
+  .contact p{ color: var(--text-muted); max-width:480px; margin: 0 auto 36px; }
+  .contact-links{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+
+  footer{ border-top:1px solid var(--border); padding: 28px 0; }
+  footer .wrap{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+  footer p{ font-family: var(--mono); font-size:12px; color: var(--text-faint); }
+
+  .reveal{ opacity:0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.visible{ opacity:1; transform: translateY(0); }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .reveal{ opacity:1; transform:none; transition:none; }
+    .terminal .dot, .terminal .caret{ animation:none; }
+  }
+
+  a:focus-visible, button:focus-visible{ outline: 2px solid var(--teal); outline-offset:3px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="logo">samina<span>.dev</span></div>
+    <ul class="navlinks">
+      <li><a href="#projects"><span class="num">01</span>Projects</a></li>
+      <li><a href="#design"><span class="num">02</span>Design</a></li>
+      <li><a href="#skills"><span class="num">03</span>Stack</a></li>
+      <li><a href="#about"><span class="num">04</span>About</a></li>
+      <li><a href="#contact"><span class="num">05</span>Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="terminal">
+      <span class="dot"></span>
+      <span id="typed"></span><span class="caret"></span>
+    </div>
+    <h1>Native Android apps with <span class="accent">on-device AI</span> baked in.</h1>
+    <p class="lede">Associate Android Developer specializing in Kotlin &amp; Jetpack Compose — building offline-first, performance-optimized apps that pair clean MVVM architecture with real machine learning.</p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn btn-primary">View Projects →</a>
+      <a href="mailto:saminagondal482004@gmail.com" class="btn btn-ghost">Get In Touch</a>
+    </div>
+    <div class="stack-strip">
+      <span class="stack-chip">Kotlin</span>
+      <span class="stack-chip">Jetpack Compose</span>
+      <span class="stack-chip">MVVM</span>
+      <span class="stack-chip">Dagger Hilt</span>
+      <span class="stack-chip">Gemini AI SDK</span>
+      <span class="stack-chip">ML Kit OCR</span>
+      <span class="stack-chip">Firebase</span>
+    </div>
+  </div>
+</header>
+
+<section class="section" id="projects">
+  <div class="wrap">
+    <div class="eyebrow reveal">Selected Work</div>
+    <h2 class="reveal">Apps that ship, not just prototypes.</h2>
+
+    <div class="project reveal">
+      <div class="project-top">
+        <div class="project-title">FinPilot AI — Smart Expense Tracker &amp; Budget Manager</div>
+        <span class="badge badge-live">Personal Project</span>
+      </div>
+      <div class="project-year">2025 – 2026</div>
+      <div class="project-desc">
+        An offline-first financial assistant with real-time receipt processing.
+        <ul>
+          <li>Real-time receipt scanning via CameraX + on-device text recognition (Google ML Kit OCR)</li>
+          <li>Gemini AI SDK integration to analyze spending patterns, stream saving tips, and predict budget risks</li>
+          <li>Clean MVVM architecture, Room DB for caching, Dagger Hilt for dependency injection</li>
+        </ul>
+      </div>
+      <div class="project-tags">
+        <span class="tag">Jetpack Compose</span>
+        <span class="tag">Gemini AI SDK</span>
+        <span class="tag">ML Kit OCR</span>
+        <span class="tag">CameraX</span>
+        <span class="tag">Room DB</span>
+        <span class="tag">Dagger Hilt</span>
+        <span class="tag">StateFlow</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/Samina2004" target="_blank" rel="noopener">GitHub →</a>
+      </div>
+    </div>
+
+    <div class="project reveal">
+      <div class="project-top">
+        <div class="project-title">AI-Powered Flood-Safe Route Planner</div>
+        <span class="badge badge-progress">Final Year Project</span>
+      </div>
+      <div class="project-year">2025 – 2026</div>
+      <div class="project-desc">
+        An intelligent navigation system for commuters during severe weather.
+        <ul>
+          <li>Calculates and dynamically suggests flood-safe, risk-mitigated alternate routes</li>
+          <li>Google Maps API with live data layer overlays to render flooded zones and safety perimeters in real time</li>
+          <li>Backed by a research paper mapping regional infrastructure and flood management strategies</li>
+        </ul>
+      </div>
+      <div class="project-tags">
+        <span class="tag">Kotlin</span>
+        <span class="tag">Jetpack Compose</span>
+        <span class="tag">Google Maps SDK</span>
+        <span class="tag">Geofencing</span>
+        <span class="tag">Firebase</span>
+        <span class="tag">LiveData</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/Samina2004" target="_blank" rel="noopener">GitHub →</a>
+      </div>
+    </div>
+
+    <div class="project reveal">
+      <div class="project-top">
+        <div class="project-title">Digital Tasbeeh Counter</div>
+        <span class="badge badge-live">Utility Project</span>
+      </div>
+      <div class="project-year">2025</div>
+      <div class="project-desc">
+        A lightweight, accessible utility app built for perfect UI state preservation.
+        <ul>
+          <li>Preserves state across full Android configuration changes and background lifecycles</li>
+          <li>Material 3 haptic feedback loops and gesture-driven interaction tracking</li>
+        </ul>
+      </div>
+      <div class="project-tags">
+        <span class="tag">Kotlin</span>
+        <span class="tag">Material Design 3</span>
+        <span class="tag">Jetpack Lifecycle</span>
+        <span class="tag">Shared Preferences</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/Samina2004" target="_blank" rel="noopener">GitHub →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="design">
+  <div class="wrap">
+    <div class="eyebrow reveal">Design Work</div>
+    <h2 class="reveal">Visual design &amp; asset creation.</h2>
+    <p class="section-intro reveal">Alongside development, I design vector assets, promotional layouts, and packaging in Illustrator, Photoshop and Figma.</p>
+    <div class="design-grid reveal">
+      <div class="design-card">
+        <div class="img-wrap"><img src="assets/linkedin-thumbnail.jpg" alt="How to grow LinkedIn profile — YouTube thumbnail design" loading="lazy"></div>
+        <div class="design-card-body">
+          <h4>YouTube Thumbnail Design</h4>
+          <p>Social media promo graphic</p>
+        </div>
+      </div>
+      <div class="design-card">
+        <div class="img-wrap"><img src="assets/khb-tours-flyer.jpg" alt="KHB Tours summer travel flyer design" loading="lazy"></div>
+        <div class="design-card-body">
+          <h4>KHB Tours — Summer Flyer</h4>
+          <p>Print marketing layout</p>
+        </div>
+      </div>
+      <div class="design-card">
+        <div class="img-wrap"><img src="assets/herbaglow-label.jpg" alt="Herbaglow Shampoo packaging label design" loading="lazy"></div>
+        <div class="design-card-body">
+          <h4>Herbaglow Shampoo — Packaging Label</h4>
+          <p>Product label &amp; vector illustration</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="skills">
+  <div class="wrap">
+    <div class="eyebrow reveal">Toolbox</div>
+    <h2 class="reveal">Stack I build with.</h2>
+    <div class="skills-grid reveal">
+      <div class="skill-cat">
+        <h3>Core Mobile</h3>
+        <ul>
+          <li>Kotlin</li>
+          <li>Jetpack Compose</li>
+          <li>Core Android SDK, Lifecycle</li>
+          <li>MVVM, StateFlow</li>
+        </ul>
+      </div>
+      <div class="skill-cat">
+        <h3>Architecture &amp; DI</h3>
+        <ul>
+          <li>Clean Architecture principles</li>
+          <li>Dagger Hilt</li>
+        </ul>
+      </div>
+      <div class="skill-cat">
+        <h3>Local Caching</h3>
+        <ul>
+          <li>Room Database (KSP)</li>
+          <li>Jetpack DataStore</li>
+          <li>Shared Preferences</li>
+        </ul>
+      </div>
+      <div class="skill-cat">
+        <h3>AI &amp; ML Core</h3>
+        <ul>
+          <li>Google Gemini AI SDK</li>
+          <li>Google ML Kit (Text Recognition OCR)</li>
+        </ul>
+      </div>
+      <div class="skill-cat">
+        <h3>Device Hardware</h3>
+        <ul>
+          <li>CameraX API</li>
+          <li>Google Maps SDK</li>
+          <li>Geofencing, Location Services</li>
+        </ul>
+      </div>
+      <div class="skill-cat">
+        <h3>Cloud Backend</h3>
+        <ul>
+          <li>Firebase Auth</li>
+          <li>Cloud Firestore</li>
+          <li>Cloud Messaging, Crashlytics, Analytics</li>
+        </ul>
+      </div>
+      <div class="skill-cat">
+        <h3>Networking</h3>
+        <ul>
+          <li>Retrofit2</li>
+          <li>OkHttp Interceptors</li>
+          <li>KotlinX Serialization</li>
+        </ul>
+      </div>
+      <div class="skill-cat">
+        <h3>UI/UX Tooling</h3>
+        <ul>
+          <li>Adobe Illustrator</li>
+          <li>Photoshop</li>
+          <li>Figma</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="eyebrow reveal">About</div>
+    <h2 class="reveal">A bit about me.</h2>
+    <div class="about-grid reveal">
+      <div class="about-text">
+        <p>I'm a disciplined, tech-centric Android developer specializing in native mobile engineering with Kotlin and Jetpack Compose. I'm proficient in building offline-first, highly scalable, performance-optimized apps following MVVM architecture — and adept at integrating on-device machine learning, generative AI pipelines, and cloud databases.</p>
+        <p>I also bring a strong visual layout sense from my design work, which helps me bridge the gap between clean code and fluid, intentional user interfaces.</p>
+      </div>
+      <div>
+        <div class="edu-card">
+          <div class="eyebrow">Education</div>
+          <h4>University of Sargodha</h4>
+          <p>BS Information Technology · 2022 – 2026</p>
+        </div>
+        <div class="edu-card">
+          <div class="eyebrow">Education</div>
+          <h4>Superior Group of Colleges, MB Din</h4>
+          <p>FSc Pre-Engineering · 2020 – 2022</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="eyebrow reveal" style="justify-content:center;">Get in touch</div>
+    <h2 class="reveal">Let's build something.</h2>
+    <p class="reveal">Open to Android developer roles, internships, and design collaborations.</p>
+    <div class="contact-links reveal">
+      <a href="mailto:saminagondal482004@gmail.com" class="btn btn-primary">Email Me</a>
+      <a href="https://github.com/Samina2004" target="_blank" rel="noopener" class="btn btn-ghost">GitHub</a>
+      <a href="https://linkedin.com/in/samina-gondal-a8316437b" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>© 2026 Samina Nawaz. Islamabad, Pakistan.</p>
+    <p>saminagondal482004@gmail.com</p>
+  </div>
+</footer>
+
+<script>
+  const phrases = [
+    "whoami → android developer",
+    "status → open to roles",
+    "building → finpilot-ai"
+  ];
+  const el = document.getElementById('typed');
+  let pIndex = 0, cIndex = 0, deleting = false;
+
+  function type(){
+    const current = phrases[pIndex];
+    if(!deleting){
+      el.textContent = current.slice(0, cIndex+1);
+      cIndex++;
+      if(cIndex === current.length){
+        deleting = true;
+        setTimeout(type, 1600);
+        return;
+      }
+    } else {
+      el.textContent = current.slice(0, cIndex-1);
+      cIndex--;
+      if(cIndex === 0){
+        deleting = false;
+        pIndex = (pIndex+1) % phrases.length;
+      }
+    }
+    setTimeout(type, deleting ? 30 : 55);
+  }
+  type();
+
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+</script>
+
+</body>
+</html>
